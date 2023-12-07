@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import csvParser from "csv-parser";
 import { Request, Response } from "express";
 
@@ -10,7 +11,7 @@ export default {
 
       const data: any = [];
 
-      fs.createReadStream("wilayah.csv")
+      fs.createReadStream(path.join(process.cwd(), "static", "places.csv"))
         .pipe(csvParser())
         .on("data", (row) => {
           if (row.kode == province) {

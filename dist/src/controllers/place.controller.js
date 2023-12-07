@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
 const csv_parser_1 = __importDefault(require("csv-parser"));
 exports.default = {
     index(req, res) {
@@ -21,7 +22,7 @@ exports.default = {
                 const { nik } = req.body;
                 const [province, city, district] = nik.slice(0, 6).match(/(\d{2})/g);
                 const data = [];
-                fs_1.default.createReadStream("wilayah.csv")
+                fs_1.default.createReadStream(path_1.default.join(process.cwd(), "static", "places.csv"))
                     .pipe((0, csv_parser_1.default)())
                     .on("data", (row) => {
                     if (row.kode == province) {
